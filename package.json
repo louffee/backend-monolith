@@ -64,6 +64,7 @@
     "database:migrate": "npx prisma migrate",
     "db:generate": "yarn run database:generate",
     "db:studio": "yarn run database:studio",
-    "db:migrate": "yarn run database:migrate"
+    "db:migrate": "yarn run database:migrate",
+    "build": "npx tsc"
   }
 }
