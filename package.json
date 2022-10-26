@@ -58,6 +58,12 @@
     "prisma": "^4.5.0"
   },
   "scripts": {
-    "prepare": "npx husky install"
+    "prepare": "npx husky install",
+    "database:generate": "npx prisma generate",
+    "database:studio": "npx prisma studio",
+    "database:migrate": "npx prisma migrate",
+    "db:generate": "yarn run database:generate",
+    "db:studio": "yarn run database:studio",
+    "db:migrate": "yarn run database:migrate"
   }
 }
