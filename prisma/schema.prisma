@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Investor {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  InvestorAuthentication InvestorAuthentication[]
+  InvestorProfile        InvestorProfile[]
+  InvestorContact        InvestorContact[]
+}
+
+model InvestorAuthentication {
+  id         Int       @id @default(autoincrement())
+  investor   Investor  @relation(fields: [investorId], references: [id])
+  investorId Int
+  password   String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+}
+
+model InvestorContact {
+  id              Int       @id @default(autoincrement())
+  investor        Investor  @relation(fields: [investorId], references: [id])
+  investorId      Int
+  email           String
+  phone           String?
+  twitterHandle   String?
+  facebookHandle  String?
+  linkedInHandle  String?
+  instagramHandle String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+}
+
+model InvestorProfile {
+  id         Int       @id @default(autoincrement())
+  investor   Investor  @relation(fields: [investorId], references: [id])
+  investorId Int
+  name       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+}
