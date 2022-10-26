@@ -1,0 +1,10 @@
+{
+  "name": "@louffee/backend-monolith",
+  "version": "0.1.0-rc",
+  "description": "The monolith for the backend which brains up Louffee!",
+  "main": "dist/main.js",
+  "repository": "git@github.com:louffee/backend-monolith.git",
+  "author": "Louffee Dev. Team <team@louffee.dev>",
+  "license": "PROPERTY",
+  "private": true
+}
