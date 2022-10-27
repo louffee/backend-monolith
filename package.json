@@ -44,6 +44,7 @@
     "prettier": "^2.7.1",
     "prettier-config-louffee": "^0.1.2",
     "renovate": "^34.1.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
@@ -71,7 +72,7 @@
     "db:generate": "yarn run database:generate",
     "db:studio": "yarn run database:studio",
     "db:migrate": "yarn run database:migrate",
-    "build": "npx tsc",
+    "build": "rimraf build && npx tsc",
     "dev": "npx ts-node-dev --respawn --transpile-only src/main.ts"
   }
 }
