@@ -1,11 +1,20 @@
-import express, { json, urlencoded } from 'express'
+import express, { json, urlencoded, raw, text } from 'express'
 import cors from 'cors'
 import compression from 'compression'
 import morgan from 'morgan'
 import helmet from 'helmet'
+import session from 'express-session'
 import * as dotenv from 'dotenv'
+import colors from 'colors'
 
 import Environment from './Environment'
+import createChannel from './logger/createChannel'
+import getInvestorsController from './controllers/investors/getInvestorsController'
+import InvestorRepository from './repositories/InvestorRepository'
+import PrismaInvestorRepository from './repositories/prisma/PrismaInvestorRepository'
+import constants from './global/constants'
+import getInvestorByIdController from './controllers/investors/getInvestorByIdController'
+import postInvestorsController from './controllers/investors/postInvestorsController'
 
 async function main() {
   dotenv.config()
@@ -16,17 +25,29 @@ async function main() {
   server.use(compression())
   server.use(morgan('dev'))
   server.use(helmet())
-  server.use(json({ limit: '50mb' }))
-  server.use(urlencoded({ extended: true, limit: '50mb' }))
+  server.use(json({ limit: '50MiB' }))
+  server.use(urlencoded({ extended: true, limit: '50MiB' }))
+  server.use(raw({ limit: '50MiB' }))
+  server.use(text({ limit: '50MiB' }))
+  server.use(session({ secret: constants.AUTH_TOKEN_SECRET, saveUninitialized: true, resave: true }))
+
+  const investorRepository: InvestorRepository = new PrismaInvestorRepository()
+  server.get('/investors', getInvestorsController(investorRepository))
+  server.post('/investors', postInvestorsController(investorRepository))
+  server.get('/investors/:id', getInvestorByIdController(investorRepository))
 
   return new Promise<void>((resolve) => {
     const { port } = new Environment()
 
     server.listen(port, () => {
-      console.log(`Server listening on port ${port}`)
+      const message = `Server listening on port ${colors.yellow(String(port))}`
+
+      const channel = createChannel()
+      channel.log(message)
+
       resolve()
     })
   })
 }
-
+// eslint-disable-next-line @typescript-eslint/no-floating-promises, unicorn/prefer-top-level-await
 main()
