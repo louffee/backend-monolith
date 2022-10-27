@@ -14,9 +14,11 @@
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.14",
+    "@types/express-session": "^1.17.5",
     "@types/jest": "^29.2.0",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.11.5",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "commitizen": "^4.2.5",
@@ -49,13 +51,17 @@
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
+    "chalk": "^5.1.2",
+    "colors": "^1.4.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "helmet": "^6.0.0",
     "morgan": "^1.10.0",
-    "prisma": "^4.5.0"
+    "prisma": "^4.5.0",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "prepare": "npx husky install",
@@ -65,6 +71,7 @@
     "db:generate": "yarn run database:generate",
     "db:studio": "yarn run database:studio",
     "db:migrate": "yarn run database:migrate",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "dev": "npx ts-node-dev --respawn --transpile-only src/main.ts"
   }
 }
