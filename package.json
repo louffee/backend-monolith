@@ -22,6 +22,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "commitizen": "^4.2.5",
+    "esbuild": "^0.15.12",
     "eslint": "^8.26.0",
     "eslint-config-louffee": "^2.3.6",
     "eslint-plugin-compat": "^4.0.2",
@@ -72,7 +73,8 @@
     "db:generate": "yarn run database:generate",
     "db:studio": "yarn run database:studio",
     "db:migrate": "yarn run database:migrate",
-    "build": "rimraf build && npx tsc",
-    "dev": "npx ts-node-dev --respawn --transpile-only src/main.ts"
+    "build": "rimraf build && npx esbuild --outfile=build/main.js --bundle src/main.ts --platform=node",
+    "dev": "npx ts-node-dev --respawn --transpile-only src/main.ts",
+    "start": "node build/main.js"
   }
 }
