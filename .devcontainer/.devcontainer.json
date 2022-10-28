@@ -1,0 +1,9 @@
+{
+  "name": "Node.js",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "target": "development"
+  },
+  "postCreateCommand": "yarn install",
+  "remoteUser": "node"
+}
