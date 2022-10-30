@@ -33,7 +33,7 @@ function postInvestorsController(repo: InvestorRepository) {
           handleException(
             'PIC-2',
             'An error has occurred while creating investor',
-            error instanceof Error ? error : new Error(String(error)),
+            error instanceof Error ? error : undefined,
           ),
         )
     }
