@@ -69,7 +69,7 @@
     "prepare": "npx husky install",
     "database:generate": "npx prisma generate",
     "database:studio": "npx prisma studio",
-    "database:migrate": "npx prisma migrate",
+    "database:migrate": "npx prisma migrate dev",
     "db:generate": "yarn run database:generate",
     "db:studio": "yarn run database:studio",
     "db:migrate": "yarn run database:migrate",
