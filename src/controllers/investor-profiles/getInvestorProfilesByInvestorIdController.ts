@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import InvestorProfile from '../../models/InvestorProfile'
 import InvestorProfileRepository from '../../repositories/InvestorProfileRepository'
 import handleException from '../../error/handleException'
+import httpStatusCodes from '../../httpStatusCodes'
 
 interface GetInvestorProfilesByInvestorIdControllerRequestParameters {
   investorId: string
@@ -30,14 +31,14 @@ function getInvestorProfilesByInvestorIdController(repo: InvestorProfileReposito
     try {
       const investorProfiles = await repo.getInvestorProfiles(request.params.investorId)
 
-      return response.status(200).json({ content: investorProfiles })
+      return response.status(httpStatusCodes.FOUND).json({ content: investorProfiles })
     } catch (error_) {
       const errorCode = 'GIPBIIC-2'
       const message =
         'It has not been possible to get the investor profiles due to an error while accessing the database.'
       const error = error_ instanceof Error ? error_ : undefined
 
-      return response.status(400).json(handleException(errorCode, message, error))
+      return response.status(httpStatusCodes.INTERNAL_SERVER_ERROR).json(handleException(errorCode, message, error))
     }
   }
 }

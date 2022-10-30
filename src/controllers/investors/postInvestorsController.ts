@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import handleException from '../../error/handleException'
 import InvestorCreateDataTransferObject from '../../models/InvestorCreateDataTransferObject'
 import InvestorRepository from '../../repositories/InvestorRepository'
+import httpStatusCodes from '../../httpStatusCodes'
 
 type PostInvestorsControllerRequestBody = InvestorCreateDataTransferObject
 
@@ -25,10 +26,10 @@ function postInvestorsController(repo: InvestorRepository) {
     try {
       const { id, name } = await repo.createInvestor(request.body)
 
-      return response.json({ id, message: `${name} has been successfully created` })
+      return response.status(httpStatusCodes.CREATED).json({ id, message: `${name} has been successfully created` })
     } catch (error) {
       return response
-        .status(500)
+        .status(httpStatusCodes.INTERNAL_SERVER_ERROR)
         .json(
           handleException(
             'PIC-2',
