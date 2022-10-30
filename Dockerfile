@@ -1,4 +1,4 @@
-FROM "node18"
+FROM "node"
 
 WORKDIR /backend-monolith
 
