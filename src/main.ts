@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import session from 'express-session'
 import * as dotenv from 'dotenv'
 import colors from 'colors'
+import cookieParser from 'cookie-parser'
 
 import Environment from './Environment'
 import createChannel from './logger/createChannel'
@@ -41,6 +42,7 @@ async function main() {
     }),
   )
   server.use(publicCompound())
+  server.use(cookieParser())
 
   server.get('/ping', getPingController())
 
