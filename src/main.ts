@@ -10,14 +10,12 @@ import colors from 'colors'
 import Environment from './Environment'
 import createChannel from './logger/createChannel'
 import getInvestorsController from './controllers/investors/getInvestorsController'
-import InvestorRepository from './repositories/InvestorRepository'
-import PrismaInvestorRepository from './repositories/prisma/PrismaInvestorRepository'
 import constants from './global/constants'
 import getInvestorByIdController from './controllers/investors/getInvestorByIdController'
 import postInvestorsController from './controllers/investors/postInvestorsController'
-import InvestorProfileRepository from './repositories/InvestorProfileRepository'
-import PrismaInvestorProfileRepository from './repositories/prisma/PrismaInvestorProfileRepository'
 import getInvestorProfilesByInvestorIdController from './controllers/investor-profiles/getInvestorProfilesByInvestorIdController'
+import factoryInvestorRepository from './repositories/factories/factoryInvestorRepository'
+import factoryInvestorProfileRepository from './repositories/factories/factoryInvestorProfileRepository'
 
 async function main() {
   dotenv.config()
@@ -34,12 +32,12 @@ async function main() {
   server.use(text({ limit: constants.EXTERNAL_DATA_TRANSFER_LIMIT }))
   server.use(session({ secret: constants.AUTH_TOKEN_SECRET, saveUninitialized: true, resave: true }))
 
-  const investorRepository: InvestorRepository = new PrismaInvestorRepository()
+  const investorRepository = factoryInvestorRepository()
   server.get('/investors', getInvestorsController(investorRepository))
   server.post('/investors', postInvestorsController(investorRepository))
   server.get('/investors/:id', getInvestorByIdController(investorRepository))
 
-  const investorProfileRepository: InvestorProfileRepository = new PrismaInvestorProfileRepository()
+  const investorProfileRepository = factoryInvestorProfileRepository()
   server.get('/investor-profiles/:investorId', getInvestorProfilesByInvestorIdController(investorProfileRepository))
 
   return new Promise<void>((resolve) => {
