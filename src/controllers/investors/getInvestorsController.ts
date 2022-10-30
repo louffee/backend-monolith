@@ -42,7 +42,7 @@ function getInvestorsController(repo: InvestorRepository) {
         const message = 'Limit is not valid'
         const err = error instanceof Error ? error : undefined
 
-        return response.status(400).json(handleException(errorCode, message, err))
+        return response.status(500).json(handleException(errorCode, message, err))
       }
 
       try {
@@ -52,7 +52,7 @@ function getInvestorsController(repo: InvestorRepository) {
         const message = 'Offset is not valid'
         const err = error instanceof Error ? error : undefined
 
-        return response.status(400).json(handleException(errorCode, message, err))
+        return response.status(500).json(handleException(errorCode, message, err))
       }
 
       const investors = await repo.fetchAllPaginatedInvestors(limit, offset)
