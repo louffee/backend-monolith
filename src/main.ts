@@ -15,6 +15,9 @@ import PrismaInvestorRepository from './repositories/prisma/PrismaInvestorReposi
 import constants from './global/constants'
 import getInvestorByIdController from './controllers/investors/getInvestorByIdController'
 import postInvestorsController from './controllers/investors/postInvestorsController'
+import InvestorProfileRepository from './repositories/InvestorProfileRepository'
+import PrismaInvestorProfileRepository from './repositories/prisma/PrismaInvestorProfileRepository'
+import getInvestorProfilesByInvestorIdController from './controllers/investor-profiles/getInvestorProfilesByInvestorIdController'
 
 async function main() {
   dotenv.config()
@@ -35,6 +38,9 @@ async function main() {
   server.get('/investors', getInvestorsController(investorRepository))
   server.post('/investors', postInvestorsController(investorRepository))
   server.get('/investors/:id', getInvestorByIdController(investorRepository))
+
+  const investorProfileRepository: InvestorProfileRepository = new PrismaInvestorProfileRepository()
+  server.get('/investor-profiles/:investorId', getInvestorProfilesByInvestorIdController(investorProfileRepository))
 
   return new Promise<void>((resolve) => {
     const { port } = new Environment()
