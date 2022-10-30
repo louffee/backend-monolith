@@ -31,7 +31,14 @@ async function main() {
   server.use(urlencoded({ extended: true, limit: constants.EXTERNAL_DATA_TRANSFER_LIMIT }))
   server.use(raw({ limit: constants.EXTERNAL_DATA_TRANSFER_LIMIT }))
   server.use(text({ limit: constants.EXTERNAL_DATA_TRANSFER_LIMIT }))
-  server.use(session({ secret: constants.AUTH_TOKEN_SECRET, saveUninitialized: true, resave: true }))
+  server.use(
+    session({
+      secret: constants.AUTH_TOKEN_SECRET,
+      saveUninitialized: true,
+      resave: true,
+      cookie: { maxAge: constants.SESSION_MAX_AGE },
+    }),
+  )
 
   server.get('/ping', getPingController())
 
