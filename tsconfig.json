@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     "target": "esnext",
-    "module": "es2022",
+    "module": "commonjs",
     "sourceMap": true,
     "outDir": "build",
     "removeComments": true,
