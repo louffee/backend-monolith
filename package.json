@@ -75,6 +75,7 @@
     "db:migrate": "yarn run database:migrate",
     "build": "rimraf build && npx esbuild --outfile=build/main.js --bundle src/main.ts --platform=node",
     "dev": "npx ts-node-dev --respawn --transpile-only src/main.ts",
-    "start": "node build/main.js"
+    "start": "node build/main.js",
+    "synchronize-copyright-header": "tsc ./scripts/synchronize-copyright-header.ts && node ./scripts/synchronize-copyright-header.js && rimraf -rf ./scripts/synchronize-copyright-header.js"
   }
 }
