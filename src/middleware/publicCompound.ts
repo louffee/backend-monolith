@@ -4,7 +4,8 @@ import url from 'node:url'
 import express from 'express'
 
 function publicCompound() {
-  const pwd = import.meta.url
+  // eslint-disable-next-line no-undef
+  const pwd = process.cwd()
   const dirname = path.dirname(url.fileURLToPath(pwd))
   const publicFolderName = 'public'
 
