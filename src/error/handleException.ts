@@ -1,13 +1,23 @@
-import ErrorCode from './ErrorCode'
+import Environment from '../Environment'
 
-function handleException(errorCode: ErrorCode, message: string, error?: Error) {
+import ErrorCode from './ErrorCode'
+import ExceptionObject from './ExceptionObject'
+
+function handleException(errorCode: ErrorCode, message: string, error?: Error): ExceptionObject {
+  const { isProduction } = new Environment()
+
   // @TODO add error tracking here
 
-  return {
+  const exceptionObject: ExceptionObject = {
     errorCode,
-    message,
-    stack: error,
+    message: `${message} (${errorCode})`,
+
+    ...(!isProduction() && {
+      stack: error,
+    }),
   }
+
+  return exceptionObject
 }
 
 export default handleException
