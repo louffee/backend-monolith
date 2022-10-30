@@ -16,6 +16,7 @@ import postInvestorsController from './controllers/investors/postInvestorsContro
 import getInvestorProfilesByInvestorIdController from './controllers/investor-profiles/getInvestorProfilesByInvestorIdController'
 import factoryInvestorRepository from './repositories/factories/factoryInvestorRepository'
 import factoryInvestorProfileRepository from './repositories/factories/factoryInvestorProfileRepository'
+import getPingController from './controllers/ping/getPingController'
 
 async function main() {
   dotenv.config()
@@ -31,6 +32,8 @@ async function main() {
   server.use(raw({ limit: constants.EXTERNAL_DATA_TRANSFER_LIMIT }))
   server.use(text({ limit: constants.EXTERNAL_DATA_TRANSFER_LIMIT }))
   server.use(session({ secret: constants.AUTH_TOKEN_SECRET, saveUninitialized: true, resave: true }))
+
+  server.get('/ping', getPingController())
 
   const investorRepository = factoryInvestorRepository()
   server.get('/investors', getInvestorsController(investorRepository))
