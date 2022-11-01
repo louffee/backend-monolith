@@ -18,6 +18,8 @@ import getInvestorProfilesByInvestorIdController from './controllers/investor-pr
 import factoryInvestorRepository from './repositories/factories/factoryInvestorRepository'
 import factoryInvestorProfileRepository from './repositories/factories/factoryInvestorProfileRepository'
 import getPingController from './controllers/ping/getPingController'
+import factoryPropertyRepository from './repositories/factories/factoryPropertyRepository'
+import getPropertiesController from './controllers/properties/getPropertiesController'
 
 async function main() {
   dotenv.config()
@@ -51,6 +53,9 @@ async function main() {
 
   const investorProfileRepository = factoryInvestorProfileRepository()
   server.get('/investor-profiles/:investorId', getInvestorProfilesByInvestorIdController(investorProfileRepository))
+
+  const propertiesRepository = factoryPropertyRepository()
+  server.get('/properties', getPropertiesController(propertiesRepository))
 
   return new Promise<void>((resolve) => {
     const { port } = new Environment()
