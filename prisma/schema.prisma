@@ -11,8 +11,9 @@ datasource db {
 }
 
 model Investor {
-  id        String    @id @default(uuid())
-  name      String
+  id   String @id @default(uuid())
+  name String
+
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -20,21 +21,23 @@ model Investor {
   InvestorAuthentication InvestorAuthentication[]
   InvestorProfile        InvestorProfile[]
   InvestorContact        InvestorContact[]
+  Property               Property[]
 }
 
 model InvestorAuthentication {
-  id         String    @id @default(uuid())
-  investor   Investor  @relation(fields: [investorId], references: [id])
+  id         String   @id @default(uuid())
+  investor   Investor @relation(fields: [investorId], references: [id])
   investorId String
   password   String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model InvestorContact {
-  id              String    @id @default(uuid())
-  investor        Investor  @relation(fields: [investorId], references: [id])
+  id              String   @id @default(uuid())
+  investor        Investor @relation(fields: [investorId], references: [id])
   investorId      String
   email           String
   phone           String?
@@ -42,17 +45,63 @@ model InvestorContact {
   facebookHandle  String?
   linkedInHandle  String?
   instagramHandle String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  deletedAt       DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model InvestorProfile {
-  id         String    @id @default(uuid())
-  investor   Investor  @relation(fields: [investorId], references: [id])
+  id         String   @id @default(uuid())
+  investor   Investor @relation(fields: [investorId], references: [id])
   investorId String
   name       String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Property {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  address     String
+  city        String
+  region      String
+  zip         String
+  country     String
+  latitude    Float?
+  longitude   Float?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  ownerInvestorId String
+  ownerInvestor   Investor @relation(fields: [ownerInvestorId], references: [id])
+
+  PropertyDetails PropertyDetails[]
+}
+
+model PropertyDetails {
+  id               String  @id @default(uuid())
+  propertyId       String
+  description      String?
+  bedrooms         Int?
+  bedroomsDetails  String?
+  bathrooms        Int?
+  bathroomsDetails String?
+  area             Int?
+  areaDetails      String?
+  price            Int?
+  priceDetails     String?
+  currency         String?
+  currencyDetails  String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  property Property @relation(fields: [propertyId], references: [id])
 }
