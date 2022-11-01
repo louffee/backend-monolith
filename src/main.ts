@@ -18,7 +18,6 @@ import getInvestorProfilesByInvestorIdController from './controllers/investor-pr
 import factoryInvestorRepository from './repositories/factories/factoryInvestorRepository'
 import factoryInvestorProfileRepository from './repositories/factories/factoryInvestorProfileRepository'
 import getPingController from './controllers/ping/getPingController'
-import publicCompound from './middleware/publicCompound'
 
 async function main() {
   dotenv.config()
@@ -41,7 +40,6 @@ async function main() {
       cookie: { maxAge: constants.SESSION_MAX_AGE },
     }),
   )
-  server.use(publicCompound())
   server.use(cookieParser())
 
   server.get('/ping', getPingController())
