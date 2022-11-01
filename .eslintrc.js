@@ -7,4 +7,7 @@ module.exports = {
     'promise/no-native': 'off',
     'jest/no-jest-import': 'off',
   },
+  env: {
+    node: true,
+  },
 }
