@@ -11,8 +11,8 @@ class PrismaInvestorRepository implements InvestorRepository {
     this.client = new PrismaClient()
   }
 
-  public async createInvestor(investor: InvestorCreateDataTransferObject): Promise<Investor> {
-    return await this.client.investor.create({ data: { ...investor, createdAt: new Date(), updatedAt: new Date() } })
+  public async createInvestor(dto: InvestorCreateDataTransferObject): Promise<Investor> {
+    return await this.client.investor.create({ data: { ...dto, createdAt: new Date(), updatedAt: new Date() } })
   }
 
   public async findByIdInvestor(id: string): Promise<Investor | null> {
