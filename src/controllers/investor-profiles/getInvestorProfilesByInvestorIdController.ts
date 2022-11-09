@@ -22,7 +22,7 @@ function getInvestorProfilesByInvestorIdController(repo: InvestorProfileReposito
   ) {
     if (typeof request.params.investorId === 'string') {
       return response
-        .status(403)
+        .status(httpStatusCodes.NOT_FOUND)
         .json(
           handleException('GIPBIIC-1', 'It has not been possible to identify the investor. You sure you know them?'),
         )
