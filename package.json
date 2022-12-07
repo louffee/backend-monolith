@@ -23,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "commitizen": "^4.2.5",
-    "esbuild": "^0.15.12",
+    "esbuild": "^0.16.0",
     "eslint": "^8.26.0",
     "eslint-config-louffee": "^2.3.6",
     "eslint-plugin-compat": "^4.0.2",
