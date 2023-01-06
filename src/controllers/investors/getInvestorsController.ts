@@ -29,7 +29,11 @@ function getInvestorsController(repo: InvestorRepository) {
     if (request.query.all === 'true') {
       const investors = await repo.fetchAllInvestors()
 
-      return response.json({ content: { investors } })
+      return response.json({
+        content: {
+          investors,
+        },
+      })
     }
 
     if (typeof request.query.limit === 'string' && typeof request.query.offset === 'string') {
@@ -58,10 +62,18 @@ function getInvestorsController(repo: InvestorRepository) {
 
       const investors = await repo.fetchAllPaginatedInvestors(limit, offset)
 
-      return response.json({ content: { investors } })
+      return response.json({
+        content: {
+          investors,
+        },
+      })
     }
 
-    return response.json({ content: { investors: [] } })
+    return response.json({
+      content: {
+        investors: [],
+      },
+    })
   }
 }
 

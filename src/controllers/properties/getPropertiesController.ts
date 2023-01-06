@@ -29,7 +29,11 @@ function getPropertiesController(repo: PropertyRepository) {
     if (request.query.all === 'true') {
       const properties = await repo.getAllProperties()
 
-      return response.json({ content: { properties } })
+      return response.json({
+        content: {
+          properties,
+        },
+      })
     }
 
     if (typeof request.query.limit === 'string' && typeof request.query.offset === 'string') {
@@ -58,7 +62,11 @@ function getPropertiesController(repo: PropertyRepository) {
 
       const properties = await repo.getPaginatedProperties(limit, offset)
 
-      return response.json({ content: { properties } })
+      return response.json({
+        content: {
+          properties,
+        },
+      })
     }
 
     const errorCode = 'GIC-3'

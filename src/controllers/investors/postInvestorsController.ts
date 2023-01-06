@@ -26,7 +26,10 @@ function postInvestorsController(repo: InvestorRepository) {
     try {
       const { id, name } = await repo.createInvestor(request.body)
 
-      return response.status(httpStatusCodes.CREATED).json({ id, message: `${name} has been successfully created` })
+      return response.status(httpStatusCodes.CREATED).json({
+        id,
+        message: `${name} has been successfully created`,
+      })
     } catch (error) {
       return response
         .status(httpStatusCodes.INTERNAL_SERVER_ERROR)

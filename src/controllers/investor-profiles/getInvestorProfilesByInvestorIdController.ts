@@ -31,7 +31,9 @@ function getInvestorProfilesByInvestorIdController(repo: InvestorProfileReposito
     try {
       const investorProfiles = await repo.getInvestorProfiles(request.params.investorId)
 
-      return response.status(httpStatusCodes.FOUND).json({ content: investorProfiles })
+      return response.status(httpStatusCodes.FOUND).json({
+        content: investorProfiles,
+      })
     } catch (error_) {
       const errorCode = 'GIPBIIC-2'
       const message =

@@ -36,9 +36,14 @@ function postInvestorProfilesByInvestorIdController(repo: InvestorProfileReposit
       const { investorId } = request.params
       const { name } = request.body
 
-      await repo.saveInvestorProfile({ investorId, name })
+      await repo.saveInvestorProfile({
+        investorId,
+        name,
+      })
 
-      return response.status(httpStatusCodes.CREATED).json({ message: 'Investor profile created successfully.' })
+      return response.status(httpStatusCodes.CREATED).json({
+        message: 'Investor profile created successfully.',
+      })
     } catch (error_) {
       const errorCode = 'PIPBIC-2'
       const message =
