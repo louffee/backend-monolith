@@ -10,16 +10,8 @@ import cookieParser from 'cookie-parser'
 
 import Environment from './Environment'
 import createChannel from './logger/createChannel'
-import getInvestorsController from './controllers/investors/getInvestorsController'
 import constants from './global/constants'
-import getInvestorByIdController from './controllers/investors/getInvestorByIdController'
-import postInvestorsController from './controllers/investors/postInvestorsController'
-import getInvestorProfilesByInvestorIdController from './controllers/investor-profiles/getInvestorProfilesByInvestorIdController'
-import factoryInvestorRepository from './repositories/factories/factoryInvestorRepository'
-import factoryInvestorProfileRepository from './repositories/factories/factoryInvestorProfileRepository'
-import getPingController from './controllers/ping/getPingController'
-import factoryPropertyRepository from './repositories/factories/factoryPropertyRepository'
-import getPropertiesController from './controllers/properties/getPropertiesController'
+import Router from './Router'
 
 async function main() {
   dotenv.config()
@@ -43,19 +35,7 @@ async function main() {
     }),
   )
   server.use(cookieParser())
-
-  server.get('/ping', getPingController())
-
-  const investorRepository = factoryInvestorRepository()
-  server.get('/investors', getInvestorsController(investorRepository))
-  server.post('/investors', postInvestorsController(investorRepository))
-  server.get('/investors/:id', getInvestorByIdController(investorRepository))
-
-  const investorProfileRepository = factoryInvestorProfileRepository()
-  server.get('/investor-profiles/:investorId', getInvestorProfilesByInvestorIdController(investorProfileRepository))
-
-  const propertiesRepository = factoryPropertyRepository()
-  server.get('/properties', getPropertiesController(propertiesRepository))
+  server.use(Router())
 
   return new Promise<void>((resolve) => {
     const { port } = new Environment()
